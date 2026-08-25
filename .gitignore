@@ -1,0 +1,6 @@
+# Config local do Claude Code, sem relação com o site.
+.claude/
+
+.DS_Store
+
+CONTEUDO.md

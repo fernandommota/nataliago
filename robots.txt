@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Esqueleto de página satélite, não é conteúdo. As cópias dele têm outro nome
+# e são indexáveis normalmente.
+Disallow: /template-pagina.html
+
+Sitemap: https://nataliago.med.br/sitemap.xml
