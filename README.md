@@ -38,9 +38,10 @@ Seções do `index.html`, na ordem: hero, credenciais, `#sobre`,
 - **O JSON-LD espelha o HTML visível** — telefone, endereço e horários mudam
   nos dois lugares.
 - **CRM e RQE ficam visíveis** no header e no rodapé: exigência do CFM.
-- **O GA4 só mede após aceite.** Consent Mode v2 com tudo `denied` por padrão;
-  o banner faz o `update`. Não mover o bloco do `<head>` para depois do
-  `gtag('config')` — o consentimento precisa ser declarado antes.
+- **O GA4 é opt-out.** Consent Mode v2 com `analytics_storage: granted` por
+  padrão; só quem recusa vira `denied`. A leitura do `localStorage` acontece
+  antes do `gtag('consent','default')` — não inverter essa ordem, nem mover o
+  bloco para depois do `gtag('config')`.
 
 ## Deploy
 

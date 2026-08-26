@@ -27,18 +27,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<!-- Google Analytics 4 — Consent Mode v2: só mede depois do aceite (LGPD) -->
+<!-- Google Analytics 4 — Consent Mode v2, modelo opt-out.
+     A medição começa ativa e só é desligada para quem recusa no banner.
+     Permissões de anúncio ficam negadas sempre: não há remarketing. -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  var recusou = false;
+  try { recusou = localStorage.getItem('consent') === 'denied'; } catch (e) {}
   gtag('consent', 'default', {
-    ad_storage: 'denied', ad_user_data: 'denied',
-    ad_personalization: 'denied', analytics_storage: 'denied'
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: recusou ? 'denied' : 'granted'
   });
-  try {
-    if (localStorage.getItem('consent') === 'granted')
-      gtag('consent', 'update', { analytics_storage: 'granted' });
-  } catch (e) {}
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2TZ7KZC5TX"></script>
 <script>
@@ -162,12 +162,13 @@
 
 <div class="consent" id="consent" hidden>
   <p>
-    Usamos cookies para medir o uso do site. Nenhuma informação de saúde é
-    coletada. <a href="/privacidade.html">Política de privacidade</a>.
+    Este site mede o uso das páginas com cookies, para saber quais conteúdos são
+    úteis. Nenhuma informação de saúde é coletada e você pode recusar a qualquer
+    momento. <a href="/privacidade.html">Política de privacidade</a>.
   </p>
   <div class="consent-actions">
     <button type="button" class="btn btn-ghost" data-consent="denied">Recusar</button>
-    <button type="button" class="btn btn-primary" data-consent="granted">Aceitar</button>
+    <button type="button" class="btn btn-primary" data-consent="granted">Entendi</button>
   </div>
 </div>
 
@@ -195,7 +196,7 @@
     const v = e.target.dataset.consent;
     if (!v) return;
     try { localStorage.setItem('consent', v); } catch (e) {}
-    if (v === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' });
+    gtag('consent', 'update', { analytics_storage: v });
     consent.hidden = true;
     document.body.classList.remove('consent-open');
   });

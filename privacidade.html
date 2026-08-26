@@ -11,18 +11,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<!-- Google Analytics 4 — Consent Mode v2: só mede depois do aceite (LGPD) -->
+<!-- Google Analytics 4 — Consent Mode v2, modelo opt-out.
+     A medição começa ativa e só é desligada para quem recusa no banner.
+     Permissões de anúncio ficam negadas sempre: não há remarketing. -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  var recusou = false;
+  try { recusou = localStorage.getItem('consent') === 'denied'; } catch (e) {}
   gtag('consent', 'default', {
-    ad_storage: 'denied', ad_user_data: 'denied',
-    ad_personalization: 'denied', analytics_storage: 'denied'
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
+    analytics_storage: recusou ? 'denied' : 'granted'
   });
-  try {
-    if (localStorage.getItem('consent') === 'granted')
-      gtag('consent', 'update', { analytics_storage: 'granted' });
-  } catch (e) {}
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2TZ7KZC5TX"></script>
 <script>
@@ -90,11 +90,12 @@
       <h2>O que é coletado</h2>
       <ul>
         <li>
-          <strong>Medição de uso do site.</strong> Com o seu aceite, usamos o
-          Google Analytics 4, que registra páginas visitadas, tempo de
-          permanência, origem do acesso, tipo de dispositivo e localização
-          aproximada por cidade. O Google não armazena o seu endereço IP no
-          GA4. Sem o aceite, nenhum cookie de medição é gravado.
+          <strong>Medição de uso do site.</strong> Usamos o Google Analytics 4,
+          que registra páginas visitadas, tempo de permanência, origem do
+          acesso, tipo de dispositivo e localização aproximada por cidade. O
+          Google não armazena o seu endereço IP no GA4. A medição começa ativa
+          e é desligada assim que você recusa no aviso exibido na primeira
+          visita.
         </li>
         <li>
           <strong>Contato por WhatsApp.</strong> Ao clicar em "Agendar consulta"
@@ -110,11 +111,17 @@
 
       <h2>Base legal e finalidade</h2>
       <p>
-        A medição de uso se apoia no <strong>consentimento</strong> (LGPD, art. 7º,
-        I), recolhido no banner e revogável a qualquer momento. A finalidade é
-        entender quais conteúdos são úteis e melhorar o site. O contato por
-        WhatsApp se apoia em procedimentos preliminares relacionados a um
-        contrato do qual você é parte (art. 7º, V) — o agendamento da consulta.
+        A medição de uso se apoia no <strong>legítimo interesse</strong> (LGPD,
+        art. 7º, IX): entender quais conteúdos são úteis e melhorar o site. São
+        dados agregados de audiência, sem identificação pessoal e sem qualquer
+        informação de saúde. Você pode <strong>se opor a esse tratamento</strong>
+        (art. 18, § 2º) recusando no aviso da primeira visita, e a medição é
+        desligada imediatamente para o seu navegador.
+      </p>
+      <p>
+        O contato por WhatsApp se apoia em procedimentos preliminares
+        relacionados a um contrato do qual você é parte (art. 7º, V) — o
+        agendamento da consulta.
       </p>
 
       <h2>Compartilhamento</h2>
@@ -138,11 +145,13 @@
         (art. 18). Basta escrever para o e-mail acima.
       </p>
 
-      <h2>Como revogar o consentimento</h2>
+      <h2>Como recusar a medição</h2>
       <p>
-        Apague os dados deste site no seu navegador (em Chrome:
-        Configurações → Privacidade → Cookies e outros dados). O banner
-        reaparece na próxima visita e você pode recusar.
+        Clique em <strong>Recusar</strong> no aviso exibido na primeira visita.
+        A escolha fica guardada no seu navegador e a medição não volta a ser
+        ativada. Se você já fechou o aviso e quer revê-lo, apague os dados deste
+        site no navegador (em Chrome: Configurações → Privacidade → Cookies e
+        outros dados) e ele reaparece no próximo acesso.
       </p>
 
       <h2>Alterações</h2>
@@ -191,12 +200,13 @@
 
 <div class="consent" id="consent" hidden>
   <p>
-    Usamos cookies para medir o uso do site. Nenhuma informação de saúde é
-    coletada. <a href="/privacidade.html">Política de privacidade</a>.
+    Este site mede o uso das páginas com cookies, para saber quais conteúdos são
+    úteis. Nenhuma informação de saúde é coletada e você pode recusar a qualquer
+    momento. <a href="/privacidade.html">Política de privacidade</a>.
   </p>
   <div class="consent-actions">
     <button type="button" class="btn btn-ghost" data-consent="denied">Recusar</button>
-    <button type="button" class="btn btn-primary" data-consent="granted">Aceitar</button>
+    <button type="button" class="btn btn-primary" data-consent="granted">Entendi</button>
   </div>
 </div>
 
@@ -224,7 +234,7 @@
     const v = e.target.dataset.consent;
     if (!v) return;
     try { localStorage.setItem('consent', v); } catch (e) {}
-    if (v === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' });
+    gtag('consent', 'update', { analytics_storage: v });
     consent.hidden = true;
     document.body.classList.remove('consent-open');
   });
