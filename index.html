@@ -20,6 +20,24 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<!-- Google Analytics 4 — Consent Mode v2: só mede depois do aceite (LGPD) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied',
+    ad_personalization: 'denied', analytics_storage: 'denied'
+  });
+  try {
+    if (localStorage.getItem('consent') === 'granted')
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+  } catch (e) {}
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2TZ7KZC5TX"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-2TZ7KZC5TX');
+</script>
 </head>
 <body>
 
@@ -378,6 +396,7 @@
       <a href="#artigos">Artigos</a>
       <a href="#duvidas">Dúvidas</a>
       <a href="#contato">Contato</a>
+      <a href="/privacidade.html">Privacidade</a>
       <a href="https://www.instagram.com/nataliago.med" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.linkedin.com/in/nat%C3%A1lia-toledo-borato-maia-385287240/" target="_blank" rel="noopener">LinkedIn</a>
     </nav>
@@ -419,6 +438,18 @@
 }
 </script>
 
+
+<div class="consent" id="consent" hidden>
+  <p>
+    Usamos cookies para medir o uso do site. Nenhuma informação de saúde é
+    coletada. <a href="/privacidade.html">Política de privacidade</a>.
+  </p>
+  <div class="consent-actions">
+    <button type="button" class="btn btn-ghost" data-consent="denied">Recusar</button>
+    <button type="button" class="btn btn-primary" data-consent="granted">Aceitar</button>
+  </div>
+</div>
+
 <script>
   const nav = document.getElementById('nav');
   const toggle = document.getElementById('navToggle');
@@ -434,6 +465,19 @@
   addEventListener('scroll', onScroll, { passive: true });
   onScroll();
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  const consent = document.getElementById('consent');
+  let saved = null;
+  try { saved = localStorage.getItem('consent'); } catch (e) {}
+  if (!saved) { consent.hidden = false; document.body.classList.add('consent-open'); }
+  consent.addEventListener('click', e => {
+    const v = e.target.dataset.consent;
+    if (!v) return;
+    try { localStorage.setItem('consent', v); } catch (e) {}
+    if (v === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' });
+    consent.hidden = true;
+    document.body.classList.remove('consent-open');
+  });
 </script>
 
 </body>

@@ -4,5 +4,9 @@
     <loc>https://nataliago.med.br/</loc>
     <priority>1.0</priority>
   </url>
+  <url>
+    <loc>https://nataliago.med.br/privacidade.html</loc>
+    <priority>0.3</priority>
+  </url>
   <!-- Adicionar uma <url> por página satélite publicada -->
 </urlset>

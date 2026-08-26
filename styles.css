@@ -397,6 +397,22 @@ img, svg { display: block; max-width: 100%; }
 }
 .wa-float:hover span, .wa-float:focus-visible span { max-width: 12rem; margin-left: .6rem; }
 
+/* ── Banner de consentimento ────────────────────────────── */
+
+.consent {
+  position: fixed; z-index: 45;
+  left: clamp(1rem, 3vw, 2rem); bottom: clamp(1rem, 3vw, 2rem);
+  width: min(27rem, calc(100vw - 2rem));
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r); padding: 1.4rem;
+  box-shadow: 0 12px 34px rgb(34 31 27 / .14);
+}
+.consent[hidden] { display: none; }
+.consent p { margin: 0 0 1.1rem; font-size: .88rem; line-height: 1.55; color: var(--muted); }
+.consent a { color: var(--accent); border-bottom: 1px solid var(--line); }
+.consent-actions { display: flex; gap: .6rem; }
+.consent-actions .btn { flex: 1; padding: .6rem 1rem; font-size: .85rem; }
+
 /* ── Páginas satélite (template-pagina.html) ────────────── */
 
 .page-hero { padding-block: clamp(3rem, 6vw, 5rem) 0; }
@@ -454,6 +470,10 @@ img, svg { display: block; max-width: 100%; }
   .facts { grid-template-columns: 1fr; gap: 1.1rem; }
   .cards { grid-template-columns: 1fr; }
   .footer-id { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  /* O banner ocupa quase toda a largura e cobriria o botão do WhatsApp.
+     Esconder é determinístico; deslocar por transform disputa com a
+     transição de .25s e falha nas telas mais estreitas. */
+  .consent-open .wa-float { display: none; }
   .info { grid-template-columns: 1fr; }
   .actions .btn { flex: 1 1 100%; }
 }

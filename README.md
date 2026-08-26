@@ -15,6 +15,7 @@ python3 -m http.server 8000
 
 ```
 index.html            one-page — todo o conteúdo
+privacidade.html      política de privacidade (LGPD)
 template-pagina.html  esqueleto de página satélite (copiar e renomear)
 styles.css            CSS único, tokens em :root
 assets/               favicon, og:image e as 4 fotos em .webp
@@ -37,6 +38,9 @@ Seções do `index.html`, na ordem: hero, credenciais, `#sobre`,
 - **O JSON-LD espelha o HTML visível** — telefone, endereço e horários mudam
   nos dois lugares.
 - **CRM e RQE ficam visíveis** no header e no rodapé: exigência do CFM.
+- **O GA4 só mede após aceite.** Consent Mode v2 com tudo `denied` por padrão;
+  o banner faz o `update`. Não mover o bloco do `<head>` para depois do
+  `gtag('config')` — o consentimento precisa ser declarado antes.
 
 ## Deploy
 
