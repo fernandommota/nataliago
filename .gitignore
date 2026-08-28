@@ -1,3 +1,7 @@
+# Originais das fotos. Ficam fora de assets/, que é publicada: o original
+# tem 4,8MB e não precisa ir ao ar nem para o repositório.
+_fontes/
+
 # Config local do Claude Code, sem relação com o site.
 .claude/
 
