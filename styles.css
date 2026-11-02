@@ -208,16 +208,19 @@ img, svg { display: block; max-width: 100%; }
 
 /* ── Cards de atendimento ───────────────────────────────── */
 
-/* 3 colunas fixas: os 6 cards fecham 2 linhas cheias, sem célula órfã */
+/* 5 cards em 6 trilhas: 3 na primeira linha, 2 mais largos na segunda,
+   sem célula órfã. Ao mudar a quantidade de cards, refazer a conta. */
 .cards {
-  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 1px; background: var(--line);
   border: 1px solid var(--line); border-radius: var(--r); overflow: hidden;
 }
 .card {
+  grid-column: span 2;
   background: var(--bg); padding: clamp(1.6rem, 3vw, 2.4rem);
   transition: background .3s var(--ease);
 }
+.card:nth-child(n+4) { grid-column: span 3; }
 .card:hover { background: var(--surface); }
 .card-num {
   display: block; font-family: var(--serif); font-size: .92rem;
@@ -341,6 +344,7 @@ img, svg { display: block; max-width: 100%; }
 .info a:hover { border-color: var(--accent); }
 
 .contact-grid .soft { aspect-ratio: 4 / 3; }
+.map iframe { display: block; width: 100%; height: 100%; border: 0; }
 
 /* ── Footer ─────────────────────────────────────────────── */
 
@@ -446,11 +450,13 @@ img, svg { display: block; max-width: 100%; }
   .about-grid > figure { max-width: 24rem; }
   .facts { grid-template-columns: repeat(2, 1fr); }
   .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .card, .card:nth-child(n+4) { grid-column: auto; }
+  .card:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .section-head.narrow { max-width: 46ch; margin-bottom: 2.5rem; }
 }
 
-/* Menu tem breakpoint próprio, maior que o do layout: com 6 itens + CTA a
-   folga entre a marca e o menu zera por volta de 1000px. O layout em duas
+/* Menu tem breakpoint próprio, maior que o do layout: medido com 6 itens + CTA,
+   a folga entre a marca e o menu zerava por volta de 1000px (hoje são 5). O layout em duas
    colunas ainda cabe bem aí, então só o menu colapsa antes. Ao adicionar
    um item no menu, remedir esta folga antes de publicar. */
 @media (max-width: 1080px) {
