@@ -38,8 +38,8 @@ O degradê vai do canto superior esquerdo ao inferior direito:
   Tamanho e posição foram ajustados para reproduzir a composição da logo
   original.
 - **Anel, silhueta, coração e ponto:** vetorizados de
-  `assets/photos/logo.webp` (512px), a arte original. Esse arquivo fica no
-  repositório como fonte, mas o site não o usa mais.
+  `assets/photos/logo.webp` (512px), a arte original. O arquivo saiu do
+  repositório e pode ser recuperado no histórico do git (commit `fd62a52`).
 
 A vetorização reconstruiu cada traço fino pelo seu eixo central, com a
 espessura medida pela tinta do original. Isso tira o tremor de pixel sem
