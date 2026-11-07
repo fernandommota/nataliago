@@ -20,6 +20,8 @@ privacidade.html      política de privacidade (LGPD)
 template-pagina.html  esqueleto de página satélite (copiar e renomear)
 styles.css            CSS único, tokens em :root
 assets/               favicon, og:image e as 4 fotos em .webp
+  logo/               logo.svg (usada no rodapé) e PNGs transparentes em
+                      4 cores × 512/1024/2048px; letras em Gilda Display (OFL)
 CNAME .nojekyll robots.txt sitemap.xml
 ```
 
